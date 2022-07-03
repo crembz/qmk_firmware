@@ -1,0 +1,14 @@
+// Copyright 2022 QMK
+// SPDX-License-Identifier: GPL-2.0-or-later
+
+#pragma once
+
+#ifndef I2C_DRIVER
+#    define I2C_DRIVER I2CD2
+#endif
+#ifndef I2C1_SDA_PIN
+#    define I2C1_SDA_PIN D2
+#endif
+#ifndef I2C1_SCL_PIN
+#    define I2C1_SCL_PIN D3
+#endif
