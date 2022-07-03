@@ -1,6 +1,11 @@
 CONVERT_TO=kb2040
-MOUSEKEY_ENABLE = yes    # Mouse keys
-RGBLIGHT_ENABLE = yes    # Enable WS2812 RGB underlight.
-OLED_ENABLE     = yes
-OLED_DRIVER     = SSD1306
 LTO_ENABLE      = yes
+CONSOLE_ENABLE = yes         # Console for debug
+COMMAND_ENABLE = yes         # Commands for debug and configuration
+MIDI_ENABLE = no            # MIDI controls
+AUDIO_ENABLE = no           # Audio output on port C6
+MOUSEKEY_ENABLE = yes
+RGBLIGHT_ENABLE = no
+RGB_MATRIX_ENABLE = yes
+OLED_ENABLE = yes
+OLED_DRIVER = SSD1306
