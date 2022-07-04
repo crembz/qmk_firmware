@@ -1,8 +1,6 @@
 /*
-This is the c configuration file for the keymap
-
-Copyright 2012 Jun Wako <wakojun@gmail.com>
-Copyright 2015 Jack Humbert
+Copyright 2019 @foostan
+Copyright 2020 Drashna Jaelre <@drashna>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -20,21 +18,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-//#define USE_MATRIX_I2C
-
 /* Select hand configuration */
 
 #define MASTER_LEFT
-// #define MASTER_RIGHT
+//#define MASTER_RIGHT
 //#define EE_HANDS
 
-#define TAPPING_FORCE_HOLD
-#define TAPPING_TERM 100
+#define SPLIT_TRANSPORT_MIRROR
+#define SPLIT_LAYER_STATE_ENABLE
+#define SPLIT_LED_STATE_ENABLE
+#define SPLIT_MODS_ENABLE
 
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET // Activates the double-tap behavior
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 200U // Timeout window in ms in which the double tap can occur.
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_LED_MASK 0U // Specify a optional status led which blinks when entering the bootloader
 
+//#define SERIAL_USART_TX_PIN D2
+#define SPLIT_USB_DETECT
 #define SERIAL_PIO_USE_PIO1
 
 #ifdef RGBLIGHT_ENABLE
@@ -45,9 +45,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGBLIGHT_EFFECT_KNIGHT
     #define RGBLIGHT_EFFECT_CHRISTMAS
     #define RGBLIGHT_EFFECT_STATIC_GRADIENT
-    #define RGBLIGHT_EFFECT_RGB_TEST
-    #define RGBLIGHT_EFFECT_ALTERNATING
-    #define RGBLIGHT_EFFECT_TWINKLE
+//  #define RGBLIGHT_EFFECT_RGB_TEST
+//  #define RGBLIGHT_EFFECT_ALTERNATING
+//  #define RGBLIGHT_EFFECT_TWINKLE
     #define RGBLIGHT_LIMIT_VAL 120
     #define RGBLIGHT_HUE_STEP 10
     #define RGBLIGHT_SAT_STEP 17
@@ -126,27 +126,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define QMK_KEYS_PER_SCAN 12
 
 #define DYNAMIC_KEYMAP_LAYER_COUNT 7
-#undef MATRIX_ROW_PINS
-#define MATRIX_ROW_PINS \
-    { GP4, GP5, GP6, GP7 }
-#undef MATRIX_COL_PINS
-// wiring of each half
-#define MATRIX_COL_PINS \
-    { GP29, GP28, GP27, GP26, GP18, GP20 }
-
-#undef RGB_DI_PIN
-#define RGB_DI_PIN      GP0
-
-#undef USE_SERIAL
-#undef SOFT_SERIAL_PIN
-#define SERIAL_USART_TX_PIN GP1
-#define SERIAL_PIO_USE_PIO
-
-#define WS2812_PIO_USE_PIO1
-
-/*
-#undef I2C1_SDA_PIN
-#define I2C1_SDA_PIN GP2
-#undef I2C1_SCL_PIN
-#define I2C1_SCL_PIN GP3
-*/
