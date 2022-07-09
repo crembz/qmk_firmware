@@ -1,4 +1,4 @@
-/* Copyright 2021 Kyle McCreery
+/* Copyright 2022 Jose Pablo Ramirez <jp.ramangulo@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,7 +16,7 @@
 
 #pragma once
 
-#define HAL_USE_I2C TRUE
+#include_next <mcuconf.h>
 
-#include_next <halconf.h>
-
+#undef RP_SPI_USE_SPI1
+#define RP_SPI_USE_SPI1 TRUE

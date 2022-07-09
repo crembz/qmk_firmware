@@ -1,4 +1,4 @@
-/* Copyright 2021 Kyle McCreery
+/* Copyright 2022 Jose Pablo Ramirez <jp.ramangulo@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,7 +16,13 @@
 
 #pragma once
 
-#include_next <mcuconf.h>
+#include_next <halconf.h>
 
-#undef STM32_I2C_USE_I2C1
-#define STM32_I2C_USE_I2C1 TRUE
+#undef HAL_USE_SPI
+#define HAL_USE_SPI TRUE
+
+#undef SPI_USE_WAIT
+#define SPI_USE_WAIT TRUE
+
+#undef SPI_SELECT_MODE
+#define SPI_SELECT_MODE SPI_SELECT_MODE_PAD
