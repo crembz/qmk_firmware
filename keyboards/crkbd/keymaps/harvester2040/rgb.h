@@ -1,0 +1,12 @@
+
+#define RGB_INDICATORS 255,255,255
+#define RGB_DANGER 255,0,0
+#define RGB_NUM 0,255,255
+#define RGB_FUNC 255,255,0
+#define RGB_MEDIA 255,0,255
+#define RGB_GAME 255,0,0
+#define RGB_MODS 0,0,255
+#define RGB_MODS2 0,255,0
+#define RGB_DEFAULT 125,125,125
+#define RGB_TRANS 10,10,10
+#define RGB_DISABLED 0,0,0

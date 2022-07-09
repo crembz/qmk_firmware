@@ -25,11 +25,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Select hand configuration */
 
 #define MASTER_LEFT
-// #define MASTER_RIGHT
+//#define MASTER_RIGHT
 //#define EE_HANDS
 
-#define TAPPING_FORCE_HOLD
-#define TAPPING_TERM 100
+#define SPLIT_TRANSPORT_MIRROR
+#define SPLIT_LAYER_STATE_ENABLE
+#define SPLIT_LED_STATE_ENABLE
+#define SPLIT_MODS_ENABLE
+#define SPLIT_OLED_ENABLE
+
+//#define TAPPING_FORCE_HOLD
+#define TAPPING_TERM 200
 
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET // Activates the double-tap behavior
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 200U // Timeout window in ms in which the double tap can occur.
@@ -37,7 +43,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define SERIAL_PIO_USE_PIO1
 
+#define VIAL_KEYBOARD_UID {0x16, 0x68, 0x8F, 0x7E, 0x5C, 0x41, 0x7F, 0x9D}
+
 #ifdef RGBLIGHT_ENABLE
+
     #define RGBLIGHT_EFFECT_BREATHING
     #define RGBLIGHT_EFFECT_RAINBOW_MOOD
     #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -125,12 +134,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define USB_POLLING_INTERVAL_MS 1
 #define QMK_KEYS_PER_SCAN 12
 
-#define DYNAMIC_KEYMAP_LAYER_COUNT 7
+#define DYNAMIC_KEYMAP_LAYER_COUNT 10
+
 #undef MATRIX_ROW_PINS
 #define MATRIX_ROW_PINS \
     { GP4, GP5, GP6, GP7 }
 #undef MATRIX_COL_PINS
-// wiring of each half
 #define MATRIX_COL_PINS \
     { GP29, GP28, GP27, GP26, GP18, GP20 }
 
@@ -144,9 +153,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define WS2812_PIO_USE_PIO1
 
-/*
-#undef I2C1_SDA_PIN
-#define I2C1_SDA_PIN GP2
-#undef I2C1_SCL_PIN
-#define I2C1_SCL_PIN GP3
-*/
+#define FORCE_NKRO
