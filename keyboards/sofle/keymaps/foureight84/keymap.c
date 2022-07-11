@@ -1,15 +1,23 @@
+/* Copyright 2022 Khoa Truong <foureight84@gmail.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include QMK_KEYBOARD_H
-#ifdef PIMORONI_TRACKBALL_ENABLE
-	#include "pimoroni_trackball.h"
-	#include "pointing_device.h"
-	#include "i2c_master.h"
-#endif
+#include <string.h>
+#include "lib/lib8tion/lib8tion.h"
 
-#ifdef OLED_DRIVER_ENABLE
-#include <stdio.h>
-
-char wpm_str[4];
-#endif
 
 enum sofle_layers {
     /* _M_XYZ = Mac Os, _W_XYZ = Win/Linux */
@@ -33,12 +41,7 @@ enum custom_keycodes {
     KC_LEND,
     KC_DLINE,
     KC_MOUSE,
-    KC_MOUSE_BTN1,
-    KC_MOUSE_BTN2
 };
-
-uint8_t MOUSE_BUTTONS;
-uint16_t trackball_led_timer;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
@@ -150,7 +153,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   XXXXXXX , XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX,  XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX, \
                    _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______ \
   ),
-/* MOUSE
+  /* MOUSE
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
@@ -167,74 +170,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_MOUSE] = LAYOUT( \
   XXXXXXX , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
   XXXXXXX , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-  XXXXXXX , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     KC_MOUSE_BTN1, KC_MOUSE_BTN2, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+  XXXXXXX , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     KC_MS_BTN1, KC_MS_BTN2, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
   XXXXXXX , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX,XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
                    _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______ \
   )
 };
 
-#ifdef PIMORONI_TRACKBALL_ENABLE
-void pointing_device_task() {
-    report_mouse_t mouse_report = pointing_device_get_report();
-
-    if (layer_state_is(_MOUSE)) {
-        mouse_report.buttons = MOUSE_BUTTONS;
-    }
-
-    trackball_set_timed_rgbw(0,0,0,80);
-
-    if (!is_keyboard_left() || !is_keyboard_master()) {
-        process_mouse(&mouse_report);
-    }
-
-
-    switch (get_highest_layer(layer_state)) {
-        case _COLEMAK:
-        case _QWERTY:
-            trackball_set_timed_rgbw(0,0,0,80);
-            break;
-        case _RAISE:
-            trackball_set_rgbw(0,153,95,0);
-            break;
-        case _LOWER:
-             trackball_set_rgbw(153,113,0,0);
-            break;
-        case _ADJUST:
-            trackball_set_rgbw(153,0,110,0);
-            break;
-        case _MOUSE:
-            trackball_set_rgbw(0,73,153,0);
-            break;
-        default:
-            trackball_set_timed_rgbw(0,0,0,80);
-    }
-
-
-    if (layer_state_is(_LOWER)) {
-        trackball_set_scrolling(true);
-    } else {
-        trackball_set_scrolling(false);
-    }
-
-    pointing_device_set_report(mouse_report);
-    pointing_device_send();
-}
-
-#endif
-
-#ifdef OLED_DRIVER_ENABLE
-
-/*
-static void render_logo(void) {
-    static const char PROGMEM qmk_logo[] = {
-        0x80,0x81,0x82,0x83,0x84,0x85,0x86,0x87,0x88,0x89,0x8a,0x8b,0x8c,0x8d,0x8e,0x8f,0x90,0x91,0x92,0x93,0x94,
-        0xa0,0xa1,0xa2,0xa3,0xa4,0xa5,0xa6,0xa7,0xa8,0xa9,0xaa,0xab,0xac,0xad,0xae,0xaf,0xb0,0xb1,0xb2,0xb3,0xb4,
-        0xc0,0xc1,0xc2,0xc3,0xc4,0xc5,0xc6,0xc7,0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0xcf,0xd0,0xd1,0xd2,0xd3,0xd4,0
-    };
-
-    oled_write_P(qmk_logo, false);
-}
-*/
+#ifdef OLED_ENABLE
 
 static void print_status_narrow(void) {
     // Print current mode
@@ -286,8 +228,16 @@ static void print_status_narrow(void) {
 }
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    return OLED_ROTATION_270;
+    if (is_keyboard_master()) {
+        return OLED_ROTATION_270;
+    }
+
+    if (!is_keyboard_master()) {
+        return OLED_ROTATION_270;
+    }
+    return rotation;
 }
+
 
 /* Animation bit by j-inc https://github.com/qmk/qmk_firmware/tree/master/keyboards/kyria/keymaps/j-inc */
 // WPM-responsive animation stuff here
@@ -387,17 +337,8 @@ static void render_anim(void) {
     //assumes 1 frame prep stage
     void animation_phase(void) {
         if(get_current_wpm() <=IDLE_SPEED){
-            /*
-            current_idle_frame = (current_idle_frame + 1) % IDLE_FRAMES;
-            oled_write_raw_P(idle[abs((IDLE_FRAMES-1)-current_idle_frame)], ANIM_SIZE);
-            */
             oled_write_raw_P(idle[0], ANIM_SIZE);
          }
-         /*
-         if(get_current_wpm() >IDLE_SPEED && get_current_wpm() <TAP_SPEED){
-             // oled_write_raw_P(prep[abs((PREP_FRAMES-1)-current_prep_frame)], ANIM_SIZE); // uncomment if IDLE_FRAMES >1
-             oled_write_raw_P(prep[0], ANIM_SIZE);  // remove if IDLE_FRAMES >1
-         }*/
          if(get_current_wpm() >=TAP_SPEED){
              current_tap_frame = (current_tap_frame + 1) % TAP_FRAMES;
              oled_write_raw_P(tap[abs((TAP_FRAMES-1)-current_tap_frame)], ANIM_SIZE);
@@ -422,17 +363,18 @@ static void render_anim(void) {
     }
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
     if (is_keyboard_master()) {
         print_status_narrow();
     } else {
         render_anim();
-        oled_set_cursor(0,12);
-        sprintf(wpm_str, "WPM\n%03d", get_current_wpm());
-        oled_write(wpm_str, false);
+        oled_set_cursor(1,12);
+        oled_write_P(PSTR("WPM"), false);
+        oled_set_cursor(1,13);
+        oled_write(get_u8_str(get_current_wpm(), '0'), false);
     }
+    return false;
 }
-
 #endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -471,13 +413,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 layer_on(_ADJUST);
             } else {
                 layer_off(_ADJUST);
-            }
-            return false;
-        case KC_MOUSE:
-            if (record->event.pressed) {
-                layer_on(_MOUSE);
-            } else {
-                layer_off(_MOUSE);
             }
             return false;
         case KC_PRVWD:
@@ -600,18 +535,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 unregister_code(KC_Z);
             }
             return false;
-        case KC_MOUSE_BTN1:
+        case KC_MOUSE:
             if (record->event.pressed) {
-                MOUSE_BUTTONS |= (1 << 0);
+                layer_on(_MOUSE);
             } else {
-                MOUSE_BUTTONS &= ~(1 << 0);
-            }
-            return false;
-        case KC_MOUSE_BTN2:
-            if (record->event.pressed) {
-                MOUSE_BUTTONS |= (1 << 1);
-            } else {
-                MOUSE_BUTTONS &= ~(1 << 1);
+                layer_off(_MOUSE);
             }
             return false;
     }
@@ -643,8 +571,46 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             }
         break;
     }
-	return true;
+    return true;
 }
 
 #endif
 
+static uint32_t       last_mouse_activity = 0;
+static report_mouse_t last_mouse_report   = {0};
+static bool           is_scrolling        = false;
+
+report_mouse_t smooth_mouse_movement(report_mouse_t mouse_report) {
+    // Linear interpolation and ease-in-out
+    static fract8 fract = 0.5;
+    int8_t        x     = 0;
+    int8_t        y     = 0;
+    int8_t        h     = 0;
+    int8_t        v     = 0;
+
+    if (!is_scrolling) {
+        x = ease8InOutApprox(lerp8by8(last_mouse_report.x, mouse_report.x, fract));
+        y = ease8InOutApprox(lerp8by8(last_mouse_report.y, mouse_report.y, fract));
+    } else {
+        h = ease8InOutApprox(lerp8by8(last_mouse_report.x, mouse_report.x, fract));
+        v = ease8InOutApprox(lerp8by8(last_mouse_report.y, mouse_report.y, fract));
+    }
+
+    // update the new smoothed report
+    mouse_report.x = x;
+    mouse_report.y = y;
+    mouse_report.h = h;
+    mouse_report.v = v;
+
+    return mouse_report;
+}
+
+report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
+
+    if (has_mouse_report_changed(&last_mouse_report, &mouse_report)) {
+        last_mouse_activity = timer_read32();
+        memcpy(&last_mouse_report, &mouse_report, sizeof(mouse_report));
+    }
+
+    return smooth_mouse_movement(mouse_report);
+}

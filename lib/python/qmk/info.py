@@ -218,6 +218,62 @@ def _extract_audio(info_data, config_c):
         info_data['audio'] = {'pins': audio_pins}
 
 
+def _extract_encoders_values(config_c, postfix=''):
+    """Common encoder extraction logic
+    """
+    a_pad = config_c.get(f'ENCODERS_PAD_A{postfix}', '').replace(' ', '')[1:-1]
+    b_pad = config_c.get(f'ENCODERS_PAD_B{postfix}', '').replace(' ', '')[1:-1]
+    resolutions = config_c.get(f'ENCODER_RESOLUTIONS{postfix}', '').replace(' ', '')[1:-1]
+
+    default_resolution = config_c.get('ENCODER_RESOLUTION', '4')
+
+    if a_pad and b_pad:
+        a_pad = list(filter(None, a_pad.split(',')))
+        b_pad = list(filter(None, b_pad.split(',')))
+        resolutions = list(filter(None, resolutions.split(',')))
+        resolutions += [default_resolution] * (len(a_pad) - len(resolutions))
+
+        encoders = []
+        for index in range(len(a_pad)):
+            encoders.append({'pin_a': a_pad[index], 'pin_b': b_pad[index], "resolution": int(resolutions[index])})
+
+        return encoders
+
+
+def _extract_encoders(info_data, config_c):
+    """Populate data about encoder pins
+    """
+    encoders = _extract_encoders_values(config_c)
+    if encoders:
+        if 'encoder' not in info_data:
+            info_data['encoder'] = {}
+
+        if 'rotary' in info_data['encoder']:
+            _log_warning(info_data, 'Encoder config is specified in both config.h and info.json (encoder.rotary) (Value: %s), the config.h value wins.' % info_data['encoder']['rotary'])
+
+        info_data['encoder']['rotary'] = encoders
+
+
+def _extract_split_encoders(info_data, config_c):
+    """Populate data about split encoder pins
+    """
+    encoders = _extract_encoders_values(config_c, '_RIGHT')
+    if encoders:
+        if 'split' not in info_data:
+            info_data['split'] = {}
+
+        if 'encoder' not in info_data['split']:
+            info_data['split']['encoder'] = {}
+
+        if 'right' not in info_data['split']['encoder']:
+            info_data['split']['encoder']['right'] = {}
+
+        if 'rotary' in info_data['split']['encoder']['right']:
+            _log_warning(info_data, 'Encoder config is specified in both config.h and info.json (encoder.rotary) (Value: %s), the config.h value wins.' % info_data['split']['encoder']['right']['rotary'])
+
+        info_data['split']['encoder']['right']['rotary'] = encoders
+
+
 def _extract_secure_unlock(info_data, config_c):
     """Populate data about the secure unlock sequence
     """
@@ -318,7 +374,7 @@ def _extract_split_right_pins(info_data, config_c):
     unused_pins = unused_pin_text.replace('{', '').replace('}', '').strip() if isinstance(unused_pin_text, str) else None
     direct_pins = config_c.get('DIRECT_PINS_RIGHT', '').replace(' ', '')[1:-1]
 
-    if row_pins and col_pins:
+    if row_pins or col_pins or direct_pins or unused_pins:
         if info_data.get('split', {}).get('matrix_pins', {}).get('right') in info_data:
             _log_warning(info_data, 'Right hand matrix data is specified in both info.json and config.h, the config.h values win.')
 
@@ -331,37 +387,17 @@ def _extract_split_right_pins(info_data, config_c):
         if 'right' not in info_data['split']['matrix_pins']:
             info_data['split']['matrix_pins']['right'] = {}
 
-        info_data['split']['matrix_pins']['right'] = {
-            'cols': _extract_pins(col_pins),
-            'rows': _extract_pins(row_pins),
-        }
+        if col_pins:
+            info_data['split']['matrix_pins']['right']['cols'] = _extract_pins(col_pins)
 
-    if direct_pins:
-        if info_data.get('split', {}).get('matrix_pins', {}).get('right', {}):
-            _log_warning(info_data, 'Right hand matrix data is specified in both info.json and config.h, the config.h values win.')
+        if row_pins:
+            info_data['split']['matrix_pins']['right']['rows'] = _extract_pins(row_pins)
 
-        if 'split' not in info_data:
-            info_data['split'] = {}
+        if direct_pins:
+            info_data['split']['matrix_pins']['right']['direct'] = _extract_direct_matrix(direct_pins)
 
-        if 'matrix_pins' not in info_data['split']:
-            info_data['split']['matrix_pins'] = {}
-
-        if 'right' not in info_data['split']['matrix_pins']:
-            info_data['split']['matrix_pins']['right'] = {}
-
-        info_data['split']['matrix_pins']['right']['direct'] = _extract_direct_matrix(direct_pins)
-
-    if unused_pins:
-        if 'split' not in info_data:
-            info_data['split'] = {}
-
-        if 'matrix_pins' not in info_data['split']:
-            info_data['split']['matrix_pins'] = {}
-
-        if 'right' not in info_data['split']['matrix_pins']:
-            info_data['split']['matrix_pins']['right'] = {}
-
-        info_data['split']['matrix_pins']['right']['unused'] = _extract_pins(unused_pins)
+        if unused_pins:
+            info_data['split']['matrix_pins']['right']['unused'] = _extract_pins(unused_pins)
 
 
 def _extract_matrix_info(info_data, config_c):
@@ -506,6 +542,8 @@ def _extract_config_h(info_data, config_c):
     _extract_split_main(info_data, config_c)
     _extract_split_transport(info_data, config_c)
     _extract_split_right_pins(info_data, config_c)
+    _extract_encoders(info_data, config_c)
+    _extract_split_encoders(info_data, config_c)
     _extract_device_version(info_data)
 
     return info_data
