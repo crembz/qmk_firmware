@@ -24,7 +24,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
                     rgb_matrix_set_color(index, RGB_DANGER);
                 } else if (index >= led_min && index <= led_max && index != NO_LED && keymap_key_to_keycode(layer, (keypos_t){col, row}) > KC_TRNS) {
                     switch (layer) {
-                        case _NUM: {
+                        /*case _NUM: {
                             rgb_matrix_set_color(index, RGB_NUM);
                             break;
                         }
@@ -35,7 +35,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
                         case _MEDIA: {
                             rgb_matrix_set_color(index, RGB_MEDIA);
                             break;
-                        }
+                        }*/
                         case _GAME: {
                             switch (keymap_key_to_keycode(layer, (keypos_t){col, row})) {
                                 case KC_W: {
@@ -61,19 +61,19 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
                             }
                             break;
                         };
-                        case _MOD: {
+                        /*case _MOD: {
                             rgb_matrix_set_color(index, RGB_MODS);
                             break;
-                        };
+                        };*/
                         default: { // for any other layers, or the default layer
                             rgb_matrix_set_color(index, RGB_DEFAULT);
                         }
                     }
-                } else if (index >= led_min && index <= led_max && index != NO_LED && keymap_key_to_keycode(layer, (keypos_t){col, row}) == KC_TRNS) {
+                } /*else if (index >= led_min && index <= led_max && index != NO_LED && keymap_key_to_keycode(layer, (keypos_t){col, row}) == KC_TRNS) {
                     rgb_matrix_set_color(index, RGB_TRANS);
                 } else if (index >= led_min && index <= led_max && index != NO_LED && keymap_key_to_keycode(layer, (keypos_t){col, row}) == KC_NO) {
                     rgb_matrix_set_color(index, RGB_DISABLED);
-                }
+                }*/
             }
         }
     }

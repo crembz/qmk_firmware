@@ -53,8 +53,17 @@ static void print_status_narrow(void) {
         case _MOD:
             oled_write_P(PSTR("Game+"), false);
             break;
+        case _NAV:
+            oled_write_P(PSTR("Nav\n"), false);
+            break;
+        case _SYM:
+            oled_write_P(PSTR("Sym\n"), false);
+            break;
+        case _MSE:
+            oled_write_P(PSTR("Mouse"), false);
+            break;
         default:
-            oled_write_ln_P(PSTR("NFI"), false);
+            oled_write_ln_P(PSTR("NFI\n"), false);
     }
     oled_write_P(PSTR("\n\n"), false);
     led_t led_usb_state = host_keyboard_led_state();
