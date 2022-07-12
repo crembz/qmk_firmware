@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,  KC_BSLS,
   KC_LSFT,   KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN,  RSFT_T(KC_QUOT),
   KC_LBRC,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, TO(_NUM),     KC_MUTE,KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_RBRC,
-                 KC_LGUI,KC_LALT,KC_LCTRL, MO(_MEDIA), KC_SPC,      KC_ENT,  LT(_FUNC,KC_LEFT), RCTL_T(KC_DOWN), RALT_T(KC_UP), RGUI_T(KC_RIGHT)
+  XXXXXXX,XXXXXXX,LT(_MEDIA,KC_ESC),   LT(_NAV,KC_TAB),  LT(_MSE,KC_SPC),      LT(_SYM,KC_ENT),   LT(_NUM,KC_BSPC), LT(_FUN,KC_DEL), XXXXXXX, XXXXXXX
 ),
 /*
  * COLEMAK
@@ -68,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,   KC_T,   KC_Q,    KC_W,    KC_E,    KC_R,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,  KC_BSLS,
   KC_LSFT,   KC_G,   KC_A,    KC_S,    KC_D,    KC_F,                     KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN,  RSFT_T(KC_QUOT),
   KC_LCTRL,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_F13,     KC_MUTE,KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_RSFT,
-                 KC_ENT,KC_LALT,MO(_FUNC),MO(_MODS), KC_SPC,      KC_SPC,  KC_TRNS, KC_RCTRL, KC_RALT, KC_RGUI
+                 XXXXXXX,XXXXXXX,MO(_NUM), MO(_MOD),  KC_SPC,      KC_ENT,   KC_BSPC , KC_DEL, XXXXXXX, XXXXXXX
 ),
 /* LOWER
  * ,-----------------------------------------.                    ,-----------------------------------------.
@@ -84,12 +84,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *            |      |      |      |      |/       /         \      \ |      |      |      |      |
  *            `----------------------------------'           '------''---------------------------'
  */
-[_NUM] = LAYOUT(
-  TO(_BASE),   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,              KC_NUM,   KC_PSLS,   KC_PAST,   KC_PMNS,  XXXXXXX,  _______,
-  XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,           KC_P7, KC_P8, KC_P9, KC_PPLS,    XXXXXXX,  XXXXXXX,
-  _______, XXXXXXX,   XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX,                       KC_P4, KC_P5, KC_P6, KC_PPLS, XXXXXXX, XXXXXXX,
-  _______,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_CALC,       _______, KC_P1, KC_P2, KC_P3, XXXXXXX, XXXXXXX, XXXXXXX,
-                       _______, _______, _______, _______, _______,       _______, KC_P0, KC_P0, KC_PDOT, _______
+[_NAV] = LAYOUT(
+  XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,               XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,
+  XXXXXXX,    KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT,    XXXXXXX,                    C(KC_Y), C(KC_V), C(KC_C), C(KC_X), C(KC_Z), C(KC_S),
+  XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX,                       KC_CAPS,  KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, XXXXXXX,
+  XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_CALC,       _______, KC_INS, KC_HOME, KC_PGDN, KC_PGUP, KC_END, XXXXXXX,
+                       XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX,       KC_ENT, KC_BSPC, KC_DEL, XXXXXXX, _______
 ),
 /* RAISE
  * ,----------------------------------------.                    ,-----------------------------------------.
@@ -105,65 +105,46 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *            |      |      |      |      |/       /         \      \ |      |      |      |      |
  *            `----------------------------------'           '------''---------------------------'
  */
-[_FUNC] = LAYOUT(
-  KC_F11,  KC_F1,   KC_F2,   KC_F3,  KC_F4, KC_F5,                           XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,
-  KC_F12,  KC_F6,   KC_F7,   KC_F8,  KC_F9, KC_F10,                        XXXXXXX, XXXXXXX,   KC_INS, XXXXXXX,XXXXXXX, XXXXXXX,
-  KC_CAPS, XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, KC_PLUS,                       XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX,
-  XXXXXXX,XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_EQL,  _______,       _______,  NK_TOGG, XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX,
-                         KC_PSCR, KC_SCRL, KC_PAUS, KC_MINS, KC_UNDS,       _______, _______, XXXXXXX, XXXXXXX, XXXXXXX
+[_MSE] = LAYOUT(
+  XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,                          XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,
+  QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, TO(_GAME), XXXXXXX,                    C(KC_Y), C(KC_V), C(KC_C), C(KC_X), C(KC_Z), C(KC_S),
+      XXXXXXX, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, XXXXXXX,                      XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, XXXXXXX,
+  EE_CLR, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  _______,       _______,  XXXXXXX, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, XXXXXXX,
+                         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  _______,     KC_BTN1, KC_BTN3, KC_BTN2, XXXXXXX, XXXXXXX
 ),
 [_MEDIA] = LAYOUT(
-  QK_BOOT, XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX,                           XXXXXXX,  XXXXXXX  , XXXXXXX,  XXXXXXX ,  XXXXXXX ,XXXXXXX,
-  RGB_TOG,  XXXXXXX,  XXXXXXX,   XXXXXXX,  XXXXXXX, XXXXXXX,                        XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX,XXXXXXX, XXXXXXX,
-  _______, XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX,                       XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX,
-  EE_CLR,XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  _______,       RGB_MOD,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX,
-                         XXXXXXX, XXXXXXX, XXXXXXX, _______, _______,       _______, TO(_GAME), KC_MPRV, KC_MPLY, KC_MNXT
+  XXXXXXX, XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX,                           XXXXXXX,  XXXXXXX  , XXXXXXX,  XXXXXXX ,  XXXXXXX ,XXXXXXX,
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX,
+      XXXXXXX, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, XXXXXXX,                      XXXXXXX, KC_MPRV, KC_VOLD, KC_VOLU, KC_MNXT, XXXXXXX,
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  _______,       RGB_MOD,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+                         XXXXXXX, XXXXXXX, _______, XXXXXXX,  XXXXXXX,     KC_MPLY, KC_MSTP, KC_MUTE, XXXXXXX, XXXXXXX
 ),
-[_MODS] = LAYOUT(
-  TO(_BASE), KC_6,   KC_7,    KC_8,    KC_9,    KC_0,                           XXXXXXX,  XXXXXXX  , XXXXXXX,  XXXXXXX ,  XXXXXXX ,XXXXXXX,
-  XXXXXXX,  XXXXXXX,  XXXXXXX,   _______,  XXXXXXX, XXXXXXX,                        XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX,XXXXXXX, XXXXXXX,
+[_NUM] = LAYOUT(
+  XXXXXXX,  XXXXXXX  , XXXXXXX,  XXXXXXX ,  XXXXXXX ,XXXXXXX,                         XXXXXXX,  XXXXXXX  , XXXXXXX,  XXXXXXX ,  XXXXXXX ,XXXXXXX,
+  XXXXXXX, KC_LBRC, KC_7, KC_8, KC_9, KC_RBRC,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      XXXXXXX, KC_SCLN, KC_4, KC_5, KC_6, KC_EQL,                      XXXXXXX, KC_RSFT, KC_RCTL, KC_RALT, KC_LGUI, XXXXXXX,
+  XXXXXXX, KC_GRV, KC_1, KC_2, KC_3, KC_BSLS,  XXXXXXX,       XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX,
+                         XXXXXXX, XXXXXXX, KC_DOT, KC_0,  KC_MINS,     XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX
+),
+[_SYM] = LAYOUT(
+  XXXXXXX,  XXXXXXX  , XXXXXXX,  XXXXXXX ,  XXXXXXX ,XXXXXXX,                           XXXXXXX,  XXXXXXX  , XXXXXXX,  XXXXXXX ,  XXXXXXX ,XXXXXXX,
+  XXXXXXX, KC_LCBR, KC_AMPR, KC_ASTR, KC_LPRN, KC_RCBR,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      XXXXXXX, KC_COLN, KC_DLR, KC_PERC, KC_CIRC, KC_PLUS,                      XXXXXXX, KC_RSFT, KC_RCTL, KC_RALT, KC_LGUI, XXXXXXX,
+  XXXXXXX, KC_TILD, KC_EXLM, KC_AT, KC_HASH, KC_PIPE,  XXXXXXX,       XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX,
+                         XXXXXXX, XXXXXXX, KC_LPRN, KC_RPRN, KC_UNDS,     _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+),
+[_FUN] = LAYOUT(
+  XXXXXXX,  XXXXXXX  , XXXXXXX,  XXXXXXX ,  XXXXXXX ,XXXXXXX,                           XXXXXXX,  XXXXXXX  , XXXXXXX,  XXXXXXX ,  XXXXXXX ,XXXXXXX,
+  XXXXXXX, KC_F12, KC_F7, KC_F8, KC_F9, KC_PSCR,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      XXXXXXX, KC_F11, KC_F4, KC_F5, KC_F6, KC_SCRL,                      XXXXXXX, KC_RSFT, KC_RCTL, KC_RALT, KC_LGUI, XXXXXXX,
+  XXXXXXX, KC_F10, KC_F1, KC_F2, KC_F3, KC_PAUS,  XXXXXXX,       XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX,
+                         XXXXXXX, XXXXXXX, KC_MENU, KC_TAB,  KC_SPC,     XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX
+),
+[_MOD] = LAYOUT(
+  XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX,                           XXXXXXX,  XXXXXXX  , XXXXXXX,  XXXXXXX ,  XXXXXXX ,TO(_BASE),
+  XXXXXXX, XXXXXXX, XXXXXXX,   _______,  XXXXXXX, XXXXXXX,                        XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX,XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX,  _______,  _______,  _______, XXXXXXX,                       XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX,
   XXXXXXX,XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,       XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX,
-                         XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX,       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+                         XXXXXXX, XXXXXXX, MO(_FUN), _______, KC_ENT,     XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX
 )
-};
-
-uint8_t mod_state;
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    mod_state = get_mods();
-    switch (keycode) {
-
-    case KC_BSPC:
-        {
-        // Initialize a boolean variable that keeps track
-        // of the delete key status: registered or not?
-        static bool delkey_registered;
-        if (record->event.pressed) {
-            // Detect the activation of either shift keys
-            if (mod_state & MOD_MASK_SHIFT) {
-                // First temporarily canceling both shifts so that
-                // shift isn't applied to the KC_DEL keycode
-                del_mods(MOD_MASK_SHIFT);
-                register_code(KC_DEL);
-                // Update the boolean variable to reflect the status of KC_DEL
-                delkey_registered = true;
-                // Reapplying modifier state so that the held shift key(s)
-                // still work even after having tapped the Backspace/Delete key.
-                set_mods(mod_state);
-                return false;
-            }
-        } else { // on release of KC_BSPC
-            // In case KC_DEL is still being sent even after the release of KC_BSPC
-            if (delkey_registered) {
-                unregister_code(KC_DEL);
-                delkey_registered = false;
-                return false;
-            }
-        }
-        // Let QMK process the KC_BSPC keycode as usual outside of shift
-        return true;
-    }
-
-    }
-    return true;
 };

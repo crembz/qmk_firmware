@@ -42,9 +42,12 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [_BASE] =   { ENCODER_CCW_CW(KC_PGUP, KC_PGDOWN),       ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
     [_GAME] =  { ENCODER_CCW_CW(KC_PSLS, KC_PAST),           ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
-    [_FUNC] =  { ENCODER_CCW_CW(KC_PGUP, KC_PGDOWN),           ENCODER_CCW_CW(KC_HOME, KC_END)  },
+    [_FUN] =  { ENCODER_CCW_CW(KC_PGUP, KC_PGDOWN),           ENCODER_CCW_CW(KC_HOME, KC_END)  },
     [_MEDIA] = { ENCODER_CCW_CW(RGB_HUI, RGB_SAI),          ENCODER_CCW_CW(RGB_VAI, RGB_SPI) },
     [_NUM] = { ENCODER_CCW_CW(KC_LEFT, KC_RIGHT),          ENCODER_CCW_CW(KC_LEFT, KC_RIGHT) },
-    [_MODS] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),          ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [_MOD] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),          ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [_SYM] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),          ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [_MSE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),          ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [_NAV] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),          ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
 };
 #endif

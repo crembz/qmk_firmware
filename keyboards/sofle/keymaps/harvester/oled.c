@@ -44,13 +44,13 @@ static void print_status_narrow(void) {
         case _NUM:
             oled_write_P(PSTR("Num\n"), false);
             break;
-        case _FUNC:
+        case _FUN:
             oled_write_P(PSTR("Func\n"), false);
             break;
         case _MEDIA:
             oled_write_P(PSTR("Media"), false);
             break;
-        case _MODS:
+        case _MOD:
             oled_write_P(PSTR("Game+"), false);
             break;
         default:

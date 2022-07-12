@@ -28,7 +28,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
                             rgb_matrix_set_color(index, RGB_NUM);
                             break;
                         }
-                        case _FUNC: {
+                        case _FUN: {
                             rgb_matrix_set_color(index, RGB_FUNC);
                             break;
                         }
@@ -61,14 +61,10 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
                             }
                             break;
                         };
-                        case _MODS: {
+                        case _MOD: {
                             rgb_matrix_set_color(index, RGB_MODS);
                             break;
                         };
-                        case _MODS2: {
-                            rgb_matrix_set_color(index, RGB_MODS2);
-                            break;
-                        }
                         default: { // for any other layers, or the default layer
                             rgb_matrix_set_color(index, RGB_DEFAULT);
                         }
