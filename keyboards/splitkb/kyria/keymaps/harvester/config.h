@@ -1,5 +1,4 @@
-/* Copyright 2020 Josef Adamcik
- * Modification for VIA support and RGB underglow by Jens Bonk-Wiltfang
+/* Copyright 2022 Thomas Baart <thomas@splitkb.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,19 +16,11 @@
 
 #pragma once
 
-/* The way how "handedness" is decided (which half is which),
-see https://docs.qmk.fm/#/feature_split_keyboard?id=setting-handedness
-for more options.
-*/
-
-#if defined(KEYBOARD_sofle_rev1)
-
 #define SPLIT_TRANSPORT_MIRROR
 #define SPLIT_LAYER_STATE_ENABLE
 #define SPLIT_LED_STATE_ENABLE
 #define SPLIT_MODS_ENABLE
 
-//#define TAPPING_FORCE_HOLD
 #ifdef TAPPING_TERM
     #undef TAPPING_TERM
     #define TAPPING_TERM 200
@@ -40,13 +31,9 @@ for more options.
     #define ENCODER_RESOLUTION 4
 #endif
 
-// Add RGB underglow and top facing lighting
-#    define RGB_DI_PIN D3
-#    define RGBLED_NUM 72
-#    define RGBLED_SPLIT { 36, 36 }
 #    ifdef RGB_MATRIX_ENABLE
-#        define DRIVER_LED_TOTAL RGBLED_NUM
-#        define RGB_MATRIX_SPLIT RGBLED_SPLIT
+//#        define DRIVER_LED_TOTAL RGBLED_NUM
+//#        define RGB_MATRIX_SPLIT RGBLED_SPLIT
 
 #       define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 // #   define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
@@ -55,7 +42,7 @@ for more options.
 //#       define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 // #   define RGB_MATRIX_LED_PROCESS_LIMIT (DRIVER_LED_TOTAL + 4) / 5 // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
 // #   define RGB_MATRIX_LED_FLUSH_LIMIT 16 // limits in milliseconds how frequently an animation will update the LEDs. 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)
-#       define RGB_MATRIX_MAXIMUM_BRIGHTNESS 120 // limits maximum brightness of LEDs to 150 out of 255. Higher may cause the controller to crash.
+//#       define RGB_MATRIX_MAXIMUM_BRIGHTNESS 120 // limits maximum brightness of LEDs to 150 out of 255. Higher may cause the controller to crash.
 #       define RGB_MATRIX_HUE_STEP 2
 #       define RGB_MATRIX_SAT_STEP 8
 #       define RGB_MATRIX_VAL_STEP 8
@@ -112,18 +99,21 @@ for more options.
 #    define ENABLE_RGB_MATRIX_SOLID_SPLASH
 #    define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 
-#       define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_BREATHING
-
-#    else
-#        define RGBLIGHT_ANIMATIONS
-#        define RGBLIGHT_LIMIT_VAL 120
-#        define RGBLIGHT_HUE_STEP  10
-#        define RGBLIGHT_SAT_STEP  17
-#        define RGBLIGHT_VAL_STEP  17
-#    endif
+#    define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_BREATHING
 #endif
+
+#ifdef RGBLIGHT_ENABLE
+#    define RGBLIGHT_ANIMATIONS
+#    define RGBLIGHT_HUE_STEP  8
+#    define RGBLIGHT_SAT_STEP  8
+#    define RGBLIGHT_VAL_STEP  8
+#    define RGBLIGHT_LIMIT_VAL 150
+#endif
+
+// Lets you roll mod-tap keys
+#define IGNORE_MOD_TAP_INTERRUPT
 
 #define USB_POLLING_INTERVAL_MS 1
 #define QMK_KEYS_PER_SCAN 12
 
-#define DYNAMIC_KEYMAP_LAYER_COUNT 9
+#define DYNAMIC_KEYMAP_LAYER_COUNT 10
