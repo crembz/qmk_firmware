@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
+<<<<<<< HEAD
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xF901
 //#define PRODUCT_ID      0xF902
@@ -25,8 +26,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MANUFACTURER    Aleblazer
 #define PRODUCT         Zodiark
 
+=======
+>>>>>>> 2b30b3e1684ce93fdb104a08f921a85a7c428ad8
 #define SOFT_SERIAL_PIN D3
-#define SERIAL_USE_MULTI_TRANSACTION
 #define SELECT_SOFT_SERIAL_SPEED 1
 
 /* key matrix size */

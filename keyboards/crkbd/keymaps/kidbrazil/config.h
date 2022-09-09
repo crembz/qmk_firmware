@@ -29,15 +29,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MASTER_RIGHT
 // #define EE_HANDS
 
-#define SSD1306OLED
-#define USE_SSD_I2C
-
-#define USE_SERIAL_PD2
-
 #define TAPPING_FORCE_HOLD
 #define TAPPING_TERM 150
 #undef PRODUCT
-#define PRODUCT         CRKBD Loose Transistor Ed.
+#define PRODUCT         "CRKBD Loose Transistor Ed."
 
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET // Activates the double-tap behavior
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 200U // Timeout window in ms in which the double tap can occur.
