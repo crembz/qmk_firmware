@@ -7,42 +7,52 @@
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
   if (!is_keyboard_master()) {
     return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
+  } else {
+    return OLED_ROTATION_270;
   }
   return rotation;
 }
 
 void oled_render_layer_state(void) {
-        oled_write_P(PSTR("Layer: "), false);
+        oled_write_P(PSTR("Layer \n-----\n"), false);
         switch (get_highest_layer(layer_state)) {
             case _BASE:
-                oled_write_ln_P(PSTR("Base"), false);
+                oled_write_ln_P(PSTR("BASE"), false);
                 break;
             case _NUM:
-                oled_write_ln_P(PSTR("Numbers"), false);
+                oled_write_ln_P(PSTR("NUM"), false);
                 break;
-            case _FUNC:
-                oled_write_ln_P(PSTR("Functions"), false);
+            case _FUN:
+                oled_write_ln_P(PSTR("FUNC"), false);
                 break;
             case _MEDIA:
-                oled_write_ln_P(PSTR("Media"), false);
+                oled_write_ln_P(PSTR("MDIA"), false);
                 break;
             case _GAME:
-                oled_write_ln_P(PSTR("Gaming"), false);
+                oled_write_ln_P(PSTR("GAME"), false);
                 break;
-            case _MODS:
-                oled_write_ln_P(PSTR("GNum"), false);
+            case _MOD:
+                oled_write_ln_P(PSTR("MOD"), false);
                 break;
-            case _MODS2:
-                oled_write_ln_P(PSTR("GFunc"), false);
+            case _MSE:
+                oled_write_ln_P(PSTR("MSE"), false);
+                break;
+            case _SYM:
+                oled_write_ln_P(PSTR("SYM"), false);
+                break;
+            case _NAV:
+                oled_write_ln_P(PSTR("NAV"), false);
                 break;
             default:
-                oled_write_ln_P(PSTR("Undefined"), false);
+                oled_write_ln_P(PSTR("NFI"), false);
         }
+    oled_write_ln_P(PSTR("\n\n----\n\n"), false);
     // Host Keyboard LED Status
-    led_t led_state = host_keyboard_led_state();
-    oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
-    oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
-    oled_write_ln_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
+    led_t led_usb_state = host_keyboard_led_state();
+    oled_write_ln_P(PSTR("CPSLK"), led_usb_state.caps_lock);
+    oled_write_ln_P(PSTR("NUMLK"), led_usb_state.num_lock);
+    oled_write_ln_P(PSTR("SCRLK"), led_usb_state.scroll_lock);
+    oled_write_ln_P(PSTR("NKRO"), keymap_config.nkro);
 }
 
 
