@@ -41,11 +41,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_BASE] = LAYOUT(
-  QK_GESC,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  KC_BSPC,
-  KC_TAB,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,  KC_BSLS,
+  KC_ESC,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  KC_BSPC,
+  KC_GRV,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,  KC_BSLS,
   KC_LSFT,   KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN,  RSFT_T(KC_QUOT),
-  KC_LCTRL,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, XXXXXXX,     KC_MUTE,KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_RALT,
-  XXXXXXX,XXXXXXX,LT(_MEDIA,KC_ESC),   LT(_NAV,KC_TAB),  LT(_MSE,KC_SPC),      LT(_SYM,KC_ENT),   LT(_NUM,KC_BSPC), LT(_FUN,KC_DEL), XXXXXXX, XXXXXXX
+  KC_LCTRL,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_CAPS,     KC_MUTE,KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_RCTRL,
+  KC_LGUI,KC_LALT,LT(_MEDIA,KC_ESC),   LT(_NAV,KC_TAB),  LT(_MSE,KC_SPC),      LT(_SYM,KC_ENT),   LT(_NUM,KC_BSPC), LT(_FUN,KC_DEL), KC_RALT, KC_MENU
 ),
 /*
  * COLEMAK
@@ -64,9 +64,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_GAME] = LAYOUT(
-  QK_GESC,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  KC_BSPC,
+  KC_ESC,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  KC_BSPC,
   KC_TAB,   KC_T,   KC_Q,    KC_W,    KC_E,    KC_R,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,  KC_BSLS,
-  KC_LSFT,   KC_G,   KC_A,    KC_S,    KC_D,    KC_F,                     KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN,  RSFT_T(KC_QUOT),
+  KC_LSFT,   KC_G,   KC_A,    KC_S,    KC_D,    KC_F,                     KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN,  KC_QUOT,
   KC_LCTRL,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_F13,     KC_MUTE,KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_RSFT,
                  XXXXXXX,XXXXXXX,MO(_NUM), MO(_MOD),  KC_SPC,      KC_ENT,   KC_BSPC , KC_DEL, XXXXXXX, XXXXXXX
 ),
@@ -86,10 +86,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_NAV] = LAYOUT(
   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,               XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,
-  XXXXXXX,    KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT,    XXXXXXX,                    C(KC_Y), C(KC_V), C(KC_C), C(KC_X), C(KC_Z), C(KC_S),
-  XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX,                       KC_CAPS,  KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, XXXXXXX,
-  XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,       XXXXXXX, KC_INS, KC_HOME, KC_PGDN, KC_PGUP, KC_END, XXXXXXX,
-                       XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX,       KC_ENT, KC_BSPC, KC_DEL, XXXXXXX, XXXXXXX
+  XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX,                    C(KC_Y), C(KC_V), C(KC_C), C(KC_X), C(KC_Z), C(KC_S),
+  _______, C(KC_A),   C(KC_S), XXXXXXX,  XXXXXXX, XXXXXXX,                       KC_CAPS,  KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, XXXXXXX,
+  _______,  C(KC_Z), C(KC_X), C(KC_C), C(KC_V), XXXXXXX, XXXXXXX,       XXXXXXX, KC_INS, KC_HOME, KC_PGDN, KC_PGUP, KC_END, _______,
+                       _______, _______, XXXXXXX, _______, XXXXXXX,       KC_ENT, KC_BSPC, KC_DEL, _______, _______
 ),
 /* RAISE
  * ,----------------------------------------.                    ,-----------------------------------------.
@@ -106,9 +106,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *            `----------------------------------'           '------''---------------------------'
  */
 [_MSE] = LAYOUT(
-  QK_BOOT,   XXXXXXX,   XXXXXXX,   XXXXXXX,  XXXXXXX,  TO(_GAME),                          XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,
+  QK_BOOT,   XXXXXXX,   XXXXXXX,   LGUI_T(KC_E),  XXXXXXX,  TO(_GAME),                          XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                    C(KC_Y), C(KC_V), C(KC_C), C(KC_X), C(KC_Z), C(KC_S),
-      XXXXXXX, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, XXXXXXX,                      XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, XXXXXXX,
+  XXXXXXX, XXXXXXX, LSG_T(KC_S), XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, XXXXXXX,
   EE_CLR, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,       XXXXXXX,  XXXXXXX, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, XXXXXXX,
                          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  _______,     KC_BTN1, KC_BTN3, KC_BTN2, XXXXXXX, XXXXXXX
 ),
