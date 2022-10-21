@@ -33,13 +33,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_FN1] = LAYOUT(
     KC_MUTE, KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_TRNS, KC_INS,
-    KC_HOME, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_PSCR, KC_SLCK, KC_PAUS, KC_NO,   KC_NO,   KC_NO,   QK_BOOT,
+    KC_HOME, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_PSCR, KC_SCRL, KC_PAUS, KC_NO,   KC_NO,   KC_NO,   QK_BOOT,
     KC_END,  KC_CAPS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,            KC_TRNS,
-             KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_TRNS, KC_NLCK, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_PGUP, KC_TRNS,
+             KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_TRNS, KC_NUM,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_PGUP, KC_TRNS,
              KC_TRNS,KC_WINLCK,KC_TRNS,          KC_TRNS, KC_TRNS,          KC_TRNS,          KC_NO,   KC_NO,   KC_HOME, KC_PGDN, KC_END
     ),
     [_LOWER] = LAYOUT(
-    EEP_RST, KC_TILD, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   RGB_VAD, RGB_VAI, KC_TRNS, KC_DEL,
+    EE_CLR,  KC_TILD, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   RGB_VAD, RGB_VAI, KC_TRNS, KC_DEL,
     RGB_HUI, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, EMO_TEARS, EMO_SAD, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   RGB_TOG,
     RGB_HUD, KC_NO,   KC_NO,   EMO_SHRUG,KC_NO,  KC_NO,   KC_NO,   KC_NO,   EMO_JOY, KC_NO,   KC_NO,   KC_NO,   KC_NO,            KC_TRNS,
              KC_NO,   KC_NO,   KC_NO,   EMO_CONFUSE,KC_NO,KC_NO,KC_TRNS,EMO_NERVOUS, KC_NO,   KC_NO,   KC_NO,   KC_NO,   RGB_MOD, KC_TRNS,

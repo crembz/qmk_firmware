@@ -21,7 +21,7 @@
 
 keyboard_config_t keyboard_config;
 #ifdef RGB_MATRIX_ENABLE
-const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -323,7 +323,7 @@ bool music_mask_kb(uint16_t keycode) {
     case QK_MOD_TAP ... QK_MOD_TAP_MAX:
     case AU_ON ... MUV_DE:
     case QK_BOOT:
-    case EEP_RST:
+    case QK_CLEAR_EEPROM:
         return false;
     default:
         return music_mask_user(keycode);
