@@ -100,9 +100,9 @@ void alt_rprn_reset(qk_tap_dance_state_t *state, void *user_data);
 // Aliases for readability
 #define BASE   TO(_BASE)
 #define GAME  TO(_GAME)
-#define SYM      LT(_SYM,KC_DEL)
-#define NAV      LT(_NAV,KC_SPC)
-#define FUN    LT(_FUN,KC_ENT)
+#define SYM      LT(_SYM,KC_ENT)
+#define NAV      LT(_NAV,KC_DEL)
+#define FUN    LT(_FUN,KC_SPC)
 #define MEDIA   LT(_MEDIA,KC_RGUI)
 #define NUM   LT(_NUM,KC_BSPC)
 #define MOD   MO(_MOD)
