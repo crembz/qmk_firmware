@@ -35,7 +35,7 @@
 // Tap Dance keycodes
 enum td_keycodes {
     CTL_LPRN, // Our example key: `LALT` when held, `(` when tapped. Add additional keycodes for each tapdance.
-    ALT_RPRN,
+    CTL_RPRN,
 
 };
 
@@ -59,8 +59,8 @@ td_state_t cur_dance(qk_tap_dance_state_t *state);
 // `finished` and `reset` functions for each tapdance keycode
 void ctl_lprn_finished(qk_tap_dance_state_t *state, void *user_data);
 void ctl_lprn_reset(qk_tap_dance_state_t *state, void *user_data);
-void alt_rprn_finished(qk_tap_dance_state_t *state, void *user_data);
-void alt_rprn_reset(qk_tap_dance_state_t *state, void *user_data);
+void ctl_rprn_finished(qk_tap_dance_state_t *state, void *user_data);
+void ctl_rprn_reset(qk_tap_dance_state_t *state, void *user_data);
 
 //Default keymap. This can be changed in Via. Use oled.c and encoder.c to change beavior that Via cannot change.
 
@@ -108,7 +108,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_ESC,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  KC_BSPC,
   KC_TAB,   KC_T,   KC_Q,    KC_W,    KC_E,    KC_R,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,  KC_BSLS,
   KC_LSFT,   KC_G,   KC_A,    KC_S,    KC_D,    KC_F,                     KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN,  KC_QUOT,
-  KC_LCTRL,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_F13,     KC_MUTE,KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_RSFT,
+  KC_LCTL,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_F13,     KC_MUTE,KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_RSFT,
                  XXXXXXX,XXXXXXX,MO(_NUM), MO(_MOD),  KC_SPC,      KC_ENT,   KC_BSPC , KC_DEL, XXXXXXX, XXXXXXX
 ),
 /* LOWER
@@ -237,7 +237,7 @@ void ctl_lprn_reset(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void atl_rprn_finished(qk_tap_dance_state_t *state, void *user_data) {
+void ctl_rprn_finished(qk_tap_dance_state_t *state, void *user_data) {
     td_state = cur_dance(state);
     switch (td_state) {
         case TD_SINGLE_TAP:
@@ -255,7 +255,7 @@ void atl_rprn_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void alt_rprn_reset(qk_tap_dance_state_t *state, void *user_data) {
+void ctl_rprn_reset(qk_tap_dance_state_t *state, void *user_data) {
     switch (td_state) {
         case TD_SINGLE_TAP:
             unregister_code16(LSFT(KC_0));
@@ -274,5 +274,5 @@ void alt_rprn_reset(qk_tap_dance_state_t *state, void *user_data) {
 // Define `ACTION_TAP_DANCE_FN_ADVANCED()` for each tapdance keycode, passing in `finished` and `reset` functions
 qk_tap_dance_action_t tap_dance_actions[] = {
     [CTL_LPRN] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ctl_lprn_finished, ctl_lprn_reset),
-    [ALT_RPRN] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, atl_rprn_finished, alt_rprn_reset)
+    [CTL_RPRN] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ctl_rprn_finished, ctl_rprn_reset)
 };
