@@ -22,18 +22,18 @@ const rgblight_segment_t PROGMEM my_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 );
 // Light LEDs 9 & 10 in cyan when keyboard layer 1 is active
 const rgblight_segment_t PROGMEM my_layer0_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {10, 1, HSV_CYAN}
+    {10, 1, HSV_WHITE}
 );
 // Light LEDs 11 & 12 in purple when keyboard layer 2 is active
 const rgblight_segment_t PROGMEM my_layer1_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {10, 1, HSV_PURPLE}
+    {10, 1, HSV_RED}
 );
 // Light LEDs 13 & 14 in green when keyboard layer 3 is active
 const rgblight_segment_t PROGMEM my_layer2_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {10, 1, HSV_GREEN}
 );
 const rgblight_segment_t PROGMEM my_layer3_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {10, 1, HSV_YELLOW}
+    {10, 1, HSV_MAGENTA}
 );
 const rgblight_segment_t PROGMEM my_layer4_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {10, 1, HSV_BLUE}
@@ -42,10 +42,10 @@ const rgblight_segment_t PROGMEM my_layer5_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {10, 1, HSV_ORANGE}
 );
 const rgblight_segment_t PROGMEM my_layer6_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {10, 1, HSV_RED}
+    {10, 1, HSV_PURPLE}
 );
 const rgblight_segment_t PROGMEM my_layer7_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {10, 1, HSV_WHITE}
+    {10, 1, HSV_CYAN}
 );
 
 // Now define the array of layers. Later layers take precedence
@@ -118,7 +118,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_GAME] = LAYOUT_reviung41(
     KC_TAB,  KC_T,   KC_Q,   KC_W,   KC_E,    KC_R,            KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,  KC_BSPC,
     KC_LSFT,  KC_G,   KC_A,   KC_S,   KC_D,    KC_F,            KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN,  KC_QUOT,
-    KC_LCTRL ,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,            KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_RCTRL,
+    KC_LCTL ,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,            KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_RCTL,
                                             KC_ESC,   MOD,  KC_SPC,   KC_ENT,  KC_RALT
   ),
 
@@ -137,7 +137,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [_NUM] = LAYOUT_reviung41(
     XXXXXXX, KC_LBRC, KC_7, KC_8, KC_9, KC_RBRC,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-      XXXXXXX, KC_SCLN, KC_4, KC_5, KC_6, KC_EQL,                      XXXXXXX, KC_RSFT, KC_RCTL, KC_RALT, KC_LGUI, XXXXXXX,
+      XXXXXXX, KC_SCLN, KC_4, KC_5, KC_6, KC_EQL,                      KC_NUM, KC_RSFT, KC_RCTL, KC_RALT, KC_LGUI, XXXXXXX,
     KC_LBRC,   KC_GRV, KC_1, KC_2, KC_3, KC_BSLS,            QK_BOOT,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_RBRC,
                                             KC_DOT,   KC_0,  KC_MINS,  _______,  XXXXXXX
   ),
