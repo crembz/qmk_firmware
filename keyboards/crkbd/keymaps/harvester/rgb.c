@@ -6,7 +6,7 @@
 
 __attribute__ ((weak))
 
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 
     if (host_keyboard_led_state().caps_lock) {
         for (uint8_t i = led_min; i <= led_max; i++) {
@@ -24,36 +24,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
                 if (index >= led_min && index <= led_max && index != NO_LED && (keymap_key_to_keycode(layer, (keypos_t){col, row}) == QK_BOOTLOADER || keymap_key_to_keycode(layer, (keypos_t){col, row}) == QK_CLEAR_EEPROM)) {
                     rgb_matrix_set_color(index, RGB_DANGER);
                 } else if (index >= led_min && index <= led_max && index != NO_LED && keymap_key_to_keycode(layer, (keypos_t){col, row}) > KC_TRNS) {
-                    switch (layer) {
-                        case _GAME: {
-                            switch (keymap_key_to_keycode(layer, (keypos_t){col, row})) {
-                                case KC_W: {
-                                    rgb_matrix_set_color(index, RGB_GAME);
-                                    break;
-                                }
-                                case KC_A: {
-                                    rgb_matrix_set_color(index, RGB_GAME);
-                                    break;
-                                }
-                                case KC_S: {
-                                    rgb_matrix_set_color(index, RGB_GAME);
-                                    break;
-                                }
-                                case KC_D: {
-                                    rgb_matrix_set_color(index, RGB_GAME);
-                                    break;
-                                }
-                                default: {
-                                    rgb_matrix_set_color(index, RGB_DISABLED);
-                                    break;
-                                }
-                            }
-                            break;
-                        };
-                        default: { // for any other layers, or the default layer
                             rgb_matrix_set_color(index, RGB_DEFAULT);
-                        }
-                    }
                 } /*else if (index >= led_min && index <= led_max && index != NO_LED && keymap_key_to_keycode(layer, (keypos_t){col, row}) == KC_TRNS) {
                     rgb_matrix_set_color(index, RGB_TRANS);
                 } else if (index >= led_min && index <= led_max && index != NO_LED && keymap_key_to_keycode(layer, (keypos_t){col, row}) == KC_NO) {
@@ -62,5 +33,6 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             }
         }
     }
+    return false;
 }
 #endif

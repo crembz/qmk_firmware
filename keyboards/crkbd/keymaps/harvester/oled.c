@@ -28,12 +28,6 @@ void oled_render_layer_state(void) {
             case _MEDIA:
                 oled_write_ln_P(PSTR("MDIA"), false);
                 break;
-            case _GAME:
-                oled_write_ln_P(PSTR("GAME"), false);
-                break;
-            case _MOD:
-                oled_write_ln_P(PSTR("MOD"), false);
-                break;
             case _MSE:
                 oled_write_ln_P(PSTR("MSE"), false);
                 break;
